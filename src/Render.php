@@ -2,21 +2,32 @@
 
 namespace AlwaysBlank\Rotary;
 
-use AlwaysBlank\Rotary\Number;
-
 class Render
 {
     /**
      * Process a number through a template.
+     *
+     * Returns an empty string when given invalid number argument.
      *
      * @param Number $Number
      * @param string $template
      *
      * @return string
      */
-    function through(Number $Number, string $template)
+    public static function through(Number $Number, string $template)
     {
         return vsprintf($template, $Number->array());
+    }
+
+    public static function render(callable $template, $num): string
+    {
+        if ( ! Helpers::validInput($num)) {
+            return '';
+        }
+
+        $Number = Helpers::number($num);
+
+        return Render::through($Number, $template($Number));
     }
 
     /**
@@ -26,17 +37,13 @@ class Render
      *
      * @return string
      */
-    function pretty($num): string
+    public static function pretty($num): string
     {
-        if ( ! Helpers::validInput($num)) {
-            return null;
-        }
-
-        $Number = Helpers::number($num);
-
-        $template = $Number->area ? Constants::TEMPLATE_PRETTY_AREA : Constants::TEMPLATE_SIMPLE;
-
-        return Render::through($Number, $template);
+        return Render::render(function (Number $Number) {
+            return $Number->area
+                ? Constants::TEMPLATE_PRETTY_AREA
+                : Constants::TEMPLATE_SIMPLE;
+        }, $num);
     }
 
     /**
@@ -46,17 +53,13 @@ class Render
      *
      * @return string
      */
-    function href($num): string
+    public static function href($num): string
     {
-        if ( ! Helpers::validInput($num)) {
-            return null;
-        }
-
-        $Number = Helpers::number($num);
-
-        $template = $Number->area ? Constants::TEMPLATE_HREF_AREA : Constants::TEMPLATE_HREF;
-
-        return Render::through($Number, $template);
+        return Render::render(function (Number $Number) {
+            return $Number->area
+                ? Constants::TEMPLATE_HREF_AREA
+                : Constants::TEMPLATE_HREF;
+        }, $num);
     }
 
     /**
@@ -66,17 +69,13 @@ class Render
      *
      * @return string
      */
-    function simple($num): string
+    public static function simple($num): string
     {
-        if ( ! Helpers::validInput($num)) {
-            return null;
-        }
-
-        $Number = Helpers::number($num);
-
-        $template = $Number->area ? Constants::TEMPLATE_SIMPLE_AREA : Constants::TEMPLATE_SIMPLE;
-
-        return Render::through($Number, $template);
+        return Render::render(function (Number $Number) {
+            return $Number->area
+                ? Constants::TEMPLATE_SIMPLE_AREA
+                : Constants::TEMPLATE_SIMPLE;
+        }, $num);
     }
 
     /**
@@ -86,16 +85,12 @@ class Render
      *
      * @return string
      */
-    function normalized($num): string
+    public static function normalized($num): string
     {
-        if ( ! Helpers::validInput($num)) {
-            return null;
-        }
-
-        $Number = Helpers::number($num);
-
-        $template = $Number->area ? Constants::TEMPLATE_NORMALIZED_AREA : Constants::TEMPLATE_NORMALIZED;
-
-        return Render::through($Number, $template);
+        return Render::render(function (Number $Number) {
+            return $Number->area
+                ? Constants::TEMPLATE_NORMALIZED_AREA
+                : Constants::TEMPLATE_NORMALIZED;
+        }, $num);
     }
 }
