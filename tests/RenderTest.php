@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RenderTest extends TestCase
 {
-    public function testGetNormalizedNumber(): void
+    public function testHandleVariedInput(): void
     {
         $expected = '1234567890';
         $this->assertEquals(
@@ -22,54 +22,51 @@ final class RenderTest extends TestCase
         );
     }
 
+    public function testGetNormalizedNumber(): void
+    {
+        $this->assertEquals(
+            '1234567890',
+            Render::normalized('1234567890')
+        );
+        $this->assertEquals(
+            '4567890',
+            Render::normalized('4567890')
+        );
+    }
+
     public function testGetPrettyNumber(): void
     {
-        $expected = '(123) 456-7890';
         $this->assertEquals(
-            $expected,
+            '(123) 456-7890',
             Render::pretty('1234567890')
         );
         $this->assertEquals(
-            $expected,
-            Render::pretty('(123) 456-7890')
-        );
-        $this->assertEquals(
-            $expected,
-            Render::pretty('[123)    456/7890')
+            '456-7890',
+            Render::pretty('4567890')
         );
     }
 
     public function testGetSimpleNumber(): void
     {
-        $expected = '123 456-7890';
         $this->assertEquals(
-            $expected,
+            '123 456-7890',
             Render::simple('1234567890')
         );
         $this->assertEquals(
-            $expected,
-            Render::simple('(123) 456-7890')
-        );
-        $this->assertEquals(
-            $expected,
-            Render::simple('[123)    456/7890')
+            '456-7890',
+            Render::simple('4567890')
         );
     }
 
     public function testGetHrefNumber(): void
     {
-        $expected = 'tel:1234567890';
         $this->assertEquals(
-            $expected,
+            'tel:+11234567890',
             Render::href('1234567890')
         );
         $this->assertEquals(
-            $expected,
-            Render::href('(123) 456-7890')
-        );
-        $this->assertEquals(
-            $expected,
-            Render::href('[123)    456/7890')
+            'tel:4567890',
+            Render::href('4567890')
         );
     }
 
