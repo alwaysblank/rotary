@@ -8,5 +8,12 @@
             "email": "ben@alwaysblank.org"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "AlwaysBlank\\Rotary\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2"
+    }
 }
