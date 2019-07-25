@@ -8,7 +8,7 @@ final class NumberTest extends TestCase
 {
     public function testCanBeCreated(): void
     {
-        $Number = Number::dial('1234567890');
+        $Number    = Number::dial('1234567890');
         $NumberInt = Number::dialInt(1234567890);
 
         $this->assertInstanceOf(
@@ -40,9 +40,22 @@ final class NumberTest extends TestCase
 
     public function testCannotSetSegmentsManually(): void
     {
-//        $this->expectException(Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage("Can't set properties");
-        $Number = Number::dial('1234567890');
+        $Number       = Number::dial('1234567890');
         $Number->area = '890';
+    }
+
+    public function testGetArrayOfSegments(): void
+    {
+        $Number = Number::dial('1234567890');
+        $this->assertEquals(
+            [
+                'area'   => '123',
+                'first'  => '456',
+                'second' => '7890',
+            ],
+            $Number->array()
+        );
     }
 }
