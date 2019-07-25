@@ -13,7 +13,7 @@ class Constants
     const TEMPLATE_SIMPLE_AREA     = "%s %s-%s";
     const TEMPLATE_PRETTY_AREA     = "(%s) %s-%s";
     const TEMPLATE_HREF            = "tel:%s%s";
-    const TEMPLATE_HREF_AREA       = "tel:%s%s%s";
+    const TEMPLATE_HREF_AREA       = "tel:+1%s%s%s";
     const TEMPLATE_NORMALIZED      = "%s%s";
     const TEMPLATE_NORMALIZED_AREA = "%s%s%s";
 }
