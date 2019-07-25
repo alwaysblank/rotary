@@ -1,29 +1,32 @@
 <?php
 
-namespace AlwaysBlank\Rotary\Helpers;
+namespace AlwaysBlank\Rotary;
 
 use AlwaysBlank\Rotary\Number;
 
-/**
- * Get a Number.
- *
- * @param string $number
- *
- * @return Number
- */
-function number(string $number)
+class Helpers
 {
-    return is_int($number) ? Number::dialInt($number) : Number::dial($number);
-}
+    /**
+     * Get a Number.
+     *
+     * @param string $number
+     *
+     * @return Number
+     */
+    public static function number(string $number): Number
+    {
+        return is_int($number) ? Number::dialInt($number) : Number::dial($number);
+    }
 
-/**
- * Is this a value that we can interpret?
- *
- * @param $number
- *
- * @return bool
- */
-function validInput($number)
-{
-    return is_string($number) || is_int($number);
+    /**
+     * Is this a value that we can interpret?
+     *
+     * @param $number
+     *
+     * @return bool
+     */
+    public static function validInput($number)
+    {
+        return is_string($number) || is_int($number);
+    }
 }

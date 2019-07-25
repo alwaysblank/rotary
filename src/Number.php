@@ -1,10 +1,6 @@
 <?php
 
-
 namespace AlwaysBlank\Rotary;
-
-
-use function AlwaysBlank\Rotary\Parse\parse;
 
 class Number
 {
@@ -21,7 +17,7 @@ class Number
      */
     private function __construct(string $number)
     {
-        foreach (parse($number) as $segment => $value) {
+        foreach (Parse::parse($number) as $segment => $value) {
             $this->$segment = $value;
         }
     }
@@ -33,9 +29,9 @@ class Number
      *
      * @return Number
      */
-    public static function dial(string $number): self
+    public static function dial(string $number): Number
     {
-        return new self($number);
+        return new Number($number);
     }
 
     /**
@@ -45,9 +41,9 @@ class Number
      *
      * @return Number
      */
-    public static function dialInt(int $number): self
+    public static function dialInt(int $number): Number
     {
-        return new self((string)$number);
+        return new Number((string)$number);
     }
 
     /**
