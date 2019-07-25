@@ -16,7 +16,12 @@ class Render
      */
     public static function through(Number $Number, string $template)
     {
-        return vsprintf($template, $Number->array());
+        $cleaned = array_filter($Number->array());
+        if (empty($cleaned)) {
+            return '';
+        }
+
+        return vsprintf($template, $cleaned);
     }
 
     public static function render(callable $template, $num): string
