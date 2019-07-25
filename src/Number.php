@@ -4,9 +4,9 @@ namespace AlwaysBlank\Rotary;
 
 class Number
 {
-    public $area   = false;
-    public $first  = false;
-    public $second = false;
+    protected $area   = false;
+    protected $first  = false;
+    protected $second = false;
 
     /**
      * Assign segments to properties.
@@ -57,6 +57,18 @@ class Number
     final function __set($name, $value): void
     {
         throw new \Exception("Can't set properties!");
+    }
+
+    /**
+     * Since segments are protected, we need this to get at them.
+     *
+     * @param $name
+     *
+     * @return mixed
+     */
+    final function __get($name)
+    {
+        return $this->$name;
     }
 
     /**
