@@ -1,0 +1,12 @@
+{
+    "name": "alwaysblank/rotary",
+    "description": "Handle phone numbers.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Martinez-Bateman",
+            "email": "ben@alwaysblank.org"
+        }
+    ],
+    "require": {}
+}
