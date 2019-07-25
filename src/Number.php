@@ -78,6 +78,11 @@ class Number
      */
     public function array(): array
     {
-        return (array)$this;
+        $array = [];
+        foreach ($this as $name => $value) {
+            $array[$name] = $value;
+        }
+
+        return $array;
     }
 }
