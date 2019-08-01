@@ -9,14 +9,14 @@ class Render
      *
      * Returns an empty string when given invalid number argument.
      *
-     * @param Number $Number
+     * @param array  $segments
      * @param string $template
      *
      * @return string
      */
-    public static function through(Number $Number, string $template)
+    public static function through(array $segments, string $template)
     {
-        $cleaned = array_filter($Number->array());
+        $cleaned = array_filter($segments);
         if (empty($cleaned)) {
             return '';
         }
@@ -32,7 +32,7 @@ class Render
 
         $Number = Helpers::number($num);
 
-        return Render::through($Number, $template($Number));
+        return Render::through($Number->array(), $template($Number));
     }
 
     /**
