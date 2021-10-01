@@ -4,6 +4,7 @@ namespace AlwaysBlank\Rotary;
 
 class Number
 {
+    protected $intl   = false;
     protected $area   = false;
     protected $first  = false;
     protected $second = false;
@@ -18,7 +19,9 @@ class Number
     private function __construct(string $number)
     {
         foreach (Parse::parse($number) as $segment => $value) {
-            $this->$segment = $value;
+            if (!empty($value)) {
+                $this->$segment = $value;
+            }
         }
     }
 
@@ -56,7 +59,7 @@ class Number
      */
     final function __set($name, $value): void
     {
-        throw new \Exception("Can't set properties!");
+        throw new \Exception("Can't set $name");
     }
 
     /**

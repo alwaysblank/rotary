@@ -5,7 +5,7 @@
 
 ## Warning ⚠
 
-Currently, this project supports *only* simple US numbers—that is numbers in the format of `nnn nnn-nnnn` or `nnn-nnnn`. If you pass it something else you will probably get very strange results.
+Rotary will support numbers that look like the standard number format used in the United State of America, i.e. `nnn-nnnn` or `nnn nnn-nnnn`. These can also be prepended with an international country code up to 5 digit long, i.e. `nn nnn nnn-nnnn`. Numbers that deviate from this pattern cannot be reliably interpreted.
 
 ## Usage 💪
 
@@ -42,5 +42,7 @@ echo $Rotary->pretty();
 ```
 
 This can be useful if you want access to several formats on one number.
+
+> You can put any non-digit characters you like in your argument and Rotary will simply ignore them--it cares only for digits. `234-5678` and `2dfsad__34-5)(6=78` are identical so far as it's concerned.
 
 **Note:** Rotary will try to interpret strange arguments, but it has limits, so please try to pass it numbers that make sense. 🙏

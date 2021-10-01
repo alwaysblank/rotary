@@ -14,19 +14,7 @@ class Parse
      */
     public static function parse(string $number): array
     {
-        $extracted = Parse::extract($number);
-
-        if (empty($extracted)) {
-            return [];
-        }
-
-        $segments = count($extracted);
-
-        return [
-            'area'   => $segments === 4 ? $extracted[1] : false,
-            'first'  => $segments === 4 ? $extracted[2] : $extracted[1],
-            'second' => $segments === 4 ? $extracted[3] : $extracted[2],
-        ];
+        return Parse::extract($number);
     }
 
     /**
@@ -36,14 +24,28 @@ class Parse
      *
      * @return array
      */
-    public static function extract(string $number)
+    public static function extract(string $number): array
     {
-        preg_match(Constants::REGEX, $number, $matches, PREG_UNMATCHED_AS_NULL);
+        $cleaned = preg_replace( Constants::REGEX_CLEAN, '', $number );
 
-        if ($matches && count($matches) >= 3) {
-            return array_values(array_filter($matches));
+        // A number with less than 7 digits can't be a valid phone number.
+        if (strlen($cleaned) < 7) {
+            return [];
         }
 
-        return [];
+        preg_match(Constants::REGEX, strrev($cleaned), $matches, PREG_UNMATCHED_AS_NULL);
+
+        // If there's no full match, we have an invalid number.
+        if (!isset($matches[0])) {
+            return [];
+        }
+
+        // We only care about certain rows.
+        $matches = array_filter($matches, function($key) {
+            return in_array((string)$key, ['intl', 'area', 'first', 'second']);
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Turn all segments the right way round again.
+        return array_map('strrev', $matches);
     }
 }

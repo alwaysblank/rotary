@@ -4,7 +4,8 @@ namespace AlwaysBlank\Rotary;
 
 class Constants
 {
-    const REGEX = '/^(?:\D*(\d{3})){0,1}\D*(\d{3})\D*(\d{3,4})$/m';
+    const REGEX = '/^(?<second>\d{4})(?<first>\d{3})(?<area>\d{3})?(?<intl>\d{1,5})?/';
+    const REGEX_CLEAN = '/[^0-9]/';
 
     /**
      * Templates

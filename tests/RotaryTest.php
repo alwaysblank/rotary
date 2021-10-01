@@ -55,7 +55,7 @@ class RotaryTest extends TestCase
         $rotary = new Rotary($this->testNumber);
         $this->assertEquals(
             $rotary->format(function($Number) {
-                return '%s!%s!%s';
+                return '%area%!%first%!%second%';
             }),
             '123!456!7890'
         );
