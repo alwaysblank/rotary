@@ -10,11 +10,36 @@ class Constants
     /**
      * Templates
      */
-    const TEMPLATE_SIMPLE          = "%s-%s";
-    const TEMPLATE_SIMPLE_AREA     = "%s %s-%s";
-    const TEMPLATE_PRETTY_AREA     = "(%s) %s-%s";
-    const TEMPLATE_HREF            = "tel:%s%s";
-    const TEMPLATE_HREF_AREA       = "tel:+1%s%s%s";
-    const TEMPLATE_NORMALIZED      = "%s%s";
-    const TEMPLATE_NORMALIZED_AREA = "%s%s%s";
+    const TEMPLATE_SIMPLE = [
+        'intl' => '%intl% ',
+        'area' => '%area% ',
+        'first' => '%first%-',
+        'second' => '%second%',
+    ];
+    const TEMPLATE_PRETTY = [
+        'intl' => '%intl% ',
+        'area' => '(%area%) ',
+        'first' => '%first%-',
+        'second' => '%second%',
+    ];
+    const TEMPLATE_HREF = [
+        'pre' => 'tel:',
+        'intl' => '+%intl%',
+        'area' => '+1%area%',
+        'first' => '%first%',
+        'second' => '%second%',
+    ];
+    const TEMPLATE_HREF_INTL = [
+        'pre' => 'tel:',
+        'intl' => '+%intl%',
+        'area' => '%area%',
+        'first' => '%first%',
+        'second' => '%second%',
+    ];
+    const TEMPLATE_NORMALIZED = [
+        'intl' => '%intl%',
+        'area' => '%area%',
+        'first' => '%first%',
+        'second' => '%second%',
+    ];
 }

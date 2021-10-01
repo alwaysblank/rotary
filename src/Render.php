@@ -27,7 +27,7 @@ class Render
      * - %first%
      * - %second%
      *
-     * @param array  $segments
+     * @param array $segments
      * @param string $template
      *
      * @return string
@@ -56,7 +56,7 @@ class Render
      */
     public static function render(callable $template, $num): string
     {
-        if ( ! Helpers::validInput($num)) {
+        if (!Helpers::validInput($num)) {
             return '';
         }
 
@@ -75,7 +75,8 @@ class Render
      * @param array $template_segments
      * @return callable
      */
-    public static function templater(array $template_segments): callable {
+    public static function templater(array $template_segments): callable
+    {
         return function (Number $Number) use ($template_segments) {
             // Allow for prepending something to the template.
             $pre = $template_segments['pre'] ?? '';
@@ -91,8 +92,9 @@ class Render
      *
      * @return array
      */
-    public static function regex_placeholders(): array {
-        return array_column(array_map(function($segment) {
+    public static function regex_placeholders(): array
+    {
+        return array_column(array_map(function ($segment) {
             return [$segment, "/(%$segment%)/"];
         }, ['intl', 'area', 'first', 'second']), 1, 0);
     }
@@ -106,14 +108,10 @@ class Render
      */
     public static function pretty($num): string
     {
-        $template_segments = [
-            'intl' => '%intl% ',
-            'area' => '(%area%) ',
-            'first' => '%first%-',
-            'second' => '%second%',
-        ];
-
-        return self::render(self::templater($template_segments), $num);
+        return self::render(
+            self::templater(Constants::TEMPLATE_PRETTY),
+            $num
+        );
     }
 
     /**
@@ -126,15 +124,11 @@ class Render
     public static function href($num): string
     {
         $Number = Helpers::number($num);
-        $template_segments = [
-            'pre' => 'tel:',
-            'intl' => '+%intl%',
-            'area' => $Number->intl ? '%area%' : '+1%area%',
-            'first' => '%first%',
-            'second' => '%second%',
-        ];
 
-        return self::render(self::templater($template_segments), $num);
+        return self::render(
+            self::templater($Number->intl ? Constants::TEMPLATE_HREF_INTL : Constants::TEMPLATE_HREF),
+            $num
+        );
     }
 
     /**
@@ -146,14 +140,10 @@ class Render
      */
     public static function simple($num): string
     {
-        $template_segments = [
-            'intl' => '%intl% ',
-            'area' => '%area% ',
-            'first' => '%first%-',
-            'second' => '%second%',
-        ];
-
-        return self::render(self::templater($template_segments), $num);
+        return self::render(
+            self::templater(Constants::TEMPLATE_SIMPLE),
+            $num
+        );
     }
 
     /**
@@ -165,13 +155,9 @@ class Render
      */
     public static function normalized($num): string
     {
-        $template_segments = [
-            'intl' => '%intl%',
-            'area' => '%area%',
-            'first' => '%first%',
-            'second' => '%second%',
-        ];
-
-        return self::render(self::templater($template_segments), $num);
+        return self::render(self::templater(
+            Constants::TEMPLATE_NORMALIZED),
+            $num
+        );
     }
 }
